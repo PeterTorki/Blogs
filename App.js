@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import IndexScreen from "./src/screens/IndexScreen";
+import { Provider } from "./src/context/BlogContext";
+import ShowScreen from "./src/screens/ShowScreen";
+import CreateScreen from "./src/screens/CreateScreen";
+import EditScreen from "./src/screens/EditScreen";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Index">
+          <Stack.Screen
+            name="Index"
+            component={IndexScreen}
+            options={{ title: "Blogs" }}
+          />
+          <Stack.Screen name="Show" component={ShowScreen} />
+          <Stack.Screen name="Create" component={CreateScreen} />
+          <Stack.Screen name="Edit" component={EditScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
